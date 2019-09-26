@@ -68,7 +68,7 @@ services:
       - internal-net
       - nginx-net   
 
-  apc-local:
+  local:
     image : busybox
     depends_on:
       - apc-mongo
