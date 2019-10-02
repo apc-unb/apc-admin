@@ -5,8 +5,9 @@ networks:
   internal-net:
 
 services:
+
   apc-api:
-    image: verasthiago/apc-api
+    image : apcunb/apc-api
     ports:
       - 8080:8080
     depends_on:
@@ -14,6 +15,27 @@ services:
     networks: 
       - internal-net
       - nginx-net
+  
+  apc-admin:
+    image : apcunb/apc-admin
+    build: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - apc-api
+    networks:
+      - internal-net
+      - nginx-net
+
+  # apc-alunos:
+  #   image : apcunb/apc-alunos
+  #   ports:
+  #     - 4000:4000
+  #   depends_on:
+  #     - apc-api
+  #   networks:
+  #     - internal-net
+  #     - nginx-net       
 
   apc-mongo:
     image: mongo
@@ -23,7 +45,7 @@ services:
       - internal-net
 
   apc-prometheus:
-    image : verasthiago/apc-prometheus
+    image : apcunb/apc-prometheus
     ports:
       - 9090:9090
     networks: 
@@ -31,7 +53,7 @@ services:
       - nginx-net
 
   apc-grafana:
-    image : verasthiago/apc-grafana
+    image : apcunb/apc-grafana
     ports:
       - 3000:3000
     environment:
@@ -41,36 +63,27 @@ services:
       - apc-prometheus
     networks: 
       - internal-net
-      - nginx-net  
+      - nginx-net
 
-  # apc-nginx:
-  #   image : verasthiago/apc-nginx
-  #   ports:
-  #     - 80:80
-  #   environment:
-  #     - HOST=localhost
-  #   networks:
-  #     - nginx-net
-  #   depends_on:
-  #     - apc-api
-  #     - apc-prometheus
-  #     - apc-grafana
-  #     - apc-admin
-
-  apc-admin:
-    image : verasthiago/apc-admin
-    build : .
+  apc-nginx:
+    image : apcunb/apc-nginx
     ports:
-      - 5000:5000
-    depends_on:
-      - apc-api
+      - 80:80
+    environment:
+      - HOST=localhost
     networks:
-      - internal-net
-      - nginx-net   
-
-  local:
-    image : busybox
+      - nginx-net
     depends_on:
-      - apc-mongo
       - apc-api
+      - apc-prometheus
+      - apc-grafana
+
+  # local:
+  #   image: busybox
+  #   depends_on:
+  #     - apc-mongo
+  #     - apc-api
+  #     - apc-alunos
+
+
 
