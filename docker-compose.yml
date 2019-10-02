@@ -78,12 +78,12 @@ services:
       - apc-prometheus
       - apc-grafana
 
-  # local:
-  #   image: busybox
-  #   depends_on:
-  #     - apc-mongo
-  #     - apc-api
-  #     - apc-alunos
+  local:
+    image: busybox
+    depends_on:
+      - apc-mongo
+      - apc-api
+      # - apc-alunos
 
 
 
