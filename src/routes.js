@@ -1,27 +1,34 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { isAuthenticated } from './auth'
 
-import SchoolClass from './pages/schoolClass'
-import Student from './pages/student'
-import Home from './pages/home'
-import Exam from './pages/exam'
-import News from './pages/news'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
+import Home from './pages/Home'
+import Login from './pages/Login'
 
 
+const PrivateRoute = ( { component: Component, ...rest} ) => (
+    <Route 
+        { ... rest } 
+        render={props => 
+            isAuthenticated() ? (
+                <Component { ... props } />
+            ) : (
+                <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+            )
+        }
+    />
+);
 
 function Routes() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path = "/" component= { Home } />
-                <Route exact path = "/news" component= { News } />
-                <Route exact path = "/exams" component= { Exam } />
-                <Route exact path = "/students" component= { Student } />
-                <Route exact path = "/classes" component= { SchoolClass } />
+                <PrivateRoute exact path = "/" component= { Home } />
+                <Route exact path = "/login" component= { Login } />
             </Switch>
         </BrowserRouter>
-    )
+    );
 }
 
-export default Routes
+export default Routes;
