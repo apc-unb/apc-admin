@@ -16,9 +16,8 @@ function Login({ history }) {
 
       const admin_data = response.data
       
-      localStorage.setItem('admin_id', admin_data.admin.ID)
-      localStorage.setItem('admin_exist', admin_data.userexist)
-      
+      localStorage.setItem('admin', JSON.stringify(admin_data))
+
       if(!admin_data.userexist) 
         alert('\nO usuário não foi encontrado ou não existe\n\nUsuário ou senha podem estar incorretos')
 
@@ -33,11 +32,13 @@ function Login({ history }) {
             <label htmlFor="username">Usuário: </label>
             <input
                 id="username"
-                type="text"
+                type="number"
                 placeholder="Matrícula"
                 value={username}
                 onChange={event => setUsername(event.target.value)}
             />
+            <span> (apenas números) </span>
+            <br/>
             <label htmlFor="password">Senha: </label>
             <input
                 id="password"
@@ -46,7 +47,7 @@ function Login({ history }) {
                 value={password}
                 onChange={event => setPassword(event.target.value)}
             />
-
+            <br/>
             <button className="btn" type="submit">Entrar</button>
         </form>
       </div>
