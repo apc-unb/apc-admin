@@ -3,19 +3,17 @@ import GetNews from '../News/GetNews';
 import CreateNews from '../News/CreateNews';
 import Header from '../Header';
 import GetStudents from '../SchoolClass/GetStudents'
+import Profile from '../Admin/Profile'
 
 
 function Home() {
-    const admin_data = JSON.parse(sessionStorage.getItem('admin'))
-
     return (
       <div className="home-page">
         <Header />
-        <h1>Olá {admin_data.admin.firstname + " " + admin_data.admin.lastname}</h1>
+        <Profile />
         <CreateNews />
         <GetNews />
         <GetStudents />
-
       </div>
     );
 }

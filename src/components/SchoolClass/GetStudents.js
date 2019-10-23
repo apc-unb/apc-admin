@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api.js';
+import ShowStudent from './ShowStudent'
 
 function GetStudents() {
     const admin_data = JSON.parse(sessionStorage.getItem('admin'))
@@ -32,6 +33,7 @@ function GetStudents() {
             <li key={s.ID}>
                 <img src={s.photourl} alt="Profile"/>
                 <p>{ s.firstname } {s.lastname}</p>
+                <ShowStudent student={ s }/>
                 <button onClick={() => handleDelete( s.ID) }>Deletar</button>
             </li>
         ))}

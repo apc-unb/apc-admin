@@ -40,8 +40,8 @@ function GetNews() {
                 {(admin_data.class.ID === n.ClassID) &&
                     <h3>{admin_data.class.classname} - {admin_data.class.year}/{admin_data.class.season}</h3>
                 }
-                {n.tags.map(tag => (
-                    <span key={tag}>[ { tag } ] / </span>
+                {n.tags.map((tag, index) => (
+                    <span key={tag + index}>[ { tag } ] / </span>
                 ))}
                 <p>{ n.description }</p>
                 <small>{ beautifulDate(n.updatedat) }</small>
