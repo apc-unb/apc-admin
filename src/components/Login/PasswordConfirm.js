@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import api from "../../services/api.js";
 
-function PasswordConfirm() {
+function PasswordConfirm({ handleSubmit }) {
   const [password, setPassword] = useState("");
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
 
-  async function handleSubmit(event) {
+  async function handleConfirm(event) {
     event.preventDefault();
 
     const response = await api.post("/admin/login", {
@@ -21,6 +21,7 @@ function PasswordConfirm() {
       alert(
         "\nO usuário não foi encontrado ou não existe\n\nMatrícula ou senha podem estar incorretos"
       );
+    else handleSubmit();
   }
 
   return (
@@ -36,7 +37,7 @@ function PasswordConfirm() {
         required
       />
       <br />
-      <button onSubmit={handleSubmit} className="btn" type="submit">
+      <button onClick={handleConfirm} className="btn" type="submit">
         Confirmar
       </button>
     </div>

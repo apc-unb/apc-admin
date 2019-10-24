@@ -11,7 +11,7 @@ function EditProfile() {
   const [photourl, setPhotourl] = useState(admin_data.admin.photourl);
   const [matricula, setMatricula] = useState(admin_data.admin.matricula);
 
-  async function handleSubmit(event) {
+  async function handleSubmit() {
     if (sessionStorage.getItem("auth")) {
       try {
         const arr = [
@@ -26,17 +26,17 @@ function EditProfile() {
         admin_data.admin.photourl = photourl;
         sessionStorage.setItem("admin", JSON.stringify(admin_data));
         await api.put("/admin", arr);
-        window.location.reload();
       } catch (err) {
         console.error(err);
       }
+      window.location.reload();
     }
   }
 
   return (
     <div className="editprofile-page">
       <h2>Editar Perfil</h2>
-      <form onSubmit={handleSubmit}>
+      <form id="edit-profile" onSubmit={handleSubmit}>
         <label htmlFor="firstname">Primeiro nome: </label>
         <input
           id="firstname"
@@ -82,7 +82,7 @@ function EditProfile() {
           required
         />
         <Popup trigger={<button type="button"> Enviar </button>}>
-          <PasswordConfirm />
+          <PasswordConfirm handleSubmit={handleSubmit} />
         </Popup>
       </form>
     </div>
