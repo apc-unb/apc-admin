@@ -1,34 +1,35 @@
-import React from 'react'
-import { isAuthenticated } from './auth'
+import React from "react";
+import { isAuthenticated } from "./auth";
 
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import Home from './components/Home'
-import Login from './components/Login'
+import HomePage from "./pages/Home";
+import LoginPage from "./pages/Login";
 
-
-const PrivateRoute = ( { component: Component, ...rest} ) => (
-    <Route 
-        { ... rest } 
-        render={props => 
-            isAuthenticated() ? (
-                <Component { ... props } />
-            ) : (
-                <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-            )
-        }
-    />
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{ pathname: "/login", state: { from: props.location } }}
+        />
+      )
+    }
+  />
 );
 
 function Routes() {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <PrivateRoute exact path = "/" component= { Home } />
-                <Route exact path = "/login" component= { Login } />
-            </Switch>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Switch>
+        <PrivateRoute exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default Routes;
