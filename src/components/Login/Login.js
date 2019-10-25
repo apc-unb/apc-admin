@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from "../../services/api.js";
+import Cookies from "universal-cookie";
 
 function Login({ history }) {
   const [username, setUsername] = useState("");
@@ -7,22 +8,24 @@ function Login({ history }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    try {
+      const response = await api.post("/admin/login", {
+        matricula: username,
+        password
+      });
+      const admin = response.data;
+      const jwt = response.data.jwt;
 
-    const response = await api.post("/admin/login", {
-      matricula: username,
-      password
-    });
+      const cookies = new Cookies();
+      cookies.set("jwt", jwt, { path: "/" });
 
-    const admin = response.data;
-
-    sessionStorage.setItem("admin", JSON.stringify(admin));
-
-    if (!admin.userexist)
+      sessionStorage.setItem("admin", JSON.stringify(admin));
+      history.push("/");
+    } catch (err) {
       alert(
         "\nO usuário não foi encontrado ou não existe\n\nMatrícula ou senha podem estar incorretos"
       );
-
-    history.push("/");
+    }
   }
 
   return (

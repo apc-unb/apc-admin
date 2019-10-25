@@ -16,7 +16,7 @@ function Home() {
       <Popup trigger={<button className="button">Editar Perfil </button>} modal>
         {close => (
           <>
-            <span href="#" className="close" onClick={close}>
+            <span href="#" className="close-btn" onClick={close}>
               &times;
             </span>
             <EditProfile />

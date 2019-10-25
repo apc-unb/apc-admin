@@ -11,30 +11,28 @@ function EditProfile() {
   const [newpassword, setNewpassword] = useState("");
 
   async function handleSubmit(password) {
-    if (sessionStorage.getItem("auth")) {
-      try {
-        if (newpassword === null) setNewpassword(password);
-        const obj = {
-          id: admin_data.admin.ID,
-          classid: admin_data.class.ID,
-          firstname,
-          lastname,
-          email,
-          password,
-          newpassword
-        };
+    try {
+      if (newpassword === null) setNewpassword(password);
+      const obj = {
+        id: admin_data.admin.ID,
+        classid: admin_data.class.ID,
+        firstname,
+        lastname,
+        email,
+        password,
+        newpassword
+      };
 
-        admin_data.admin.email = email;
-        admin_data.admin.firstname = firstname;
-        admin_data.admin.lastname = lastname;
+      admin_data.admin.email = email;
+      admin_data.admin.firstname = firstname;
+      admin_data.admin.lastname = lastname;
 
-        sessionStorage.setItem("admin", JSON.stringify(admin_data));
-        await api.put("/admin", obj);
-      } catch (err) {
-        console.error(err);
-      }
-      window.location.reload();
+      sessionStorage.setItem("admin", JSON.stringify(admin_data));
+      await api.put("/admin", obj);
+    } catch (err) {
+      console.error(err);
     }
+    window.location.reload();
   }
 
   return (

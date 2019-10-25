@@ -7,21 +7,19 @@ function PasswordConfirm({ handleFunc }) {
 
   async function handleConfirm(event) {
     event.preventDefault();
+    try {
+      const response = await api.post("/admin/login", {
+        matricula: admin_data.admin.matricula,
+        password
+      });
 
-    const response = await api.post("/admin/login", {
-      matricula: admin_data.admin.matricula,
-      password
-    });
-
-    const admin = response.data;
-
-    sessionStorage.setItem("auth", admin.userexist);
-
-    if (!admin.userexist)
+      const status = response.status;
+      if (status === 200) handleFunc(password);
+    } catch (err) {
       alert(
         "\nO usuário não foi encontrado ou não existe\n\nMatrícula ou senha podem estar incorretos"
       );
-    else handleFunc(password);
+    }
   }
 
   return (

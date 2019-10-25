@@ -48,7 +48,7 @@ function GetStudents() {
             >
               {close => (
                 <>
-                  <span href="#" className="close" onClick={close}>
+                  <span href="#" className="close-btn" onClick={close}>
                     &times;
                   </span>
                   <ShowStudent student={s} />
@@ -61,7 +61,7 @@ function GetStudents() {
             >
               {close => (
                 <>
-                  <span href="#" className="close" onClick={close}>
+                  <span href="#" className="close-btn" onClick={close}>
                     &times;
                   </span>
                   <EditStudent student={s} />
