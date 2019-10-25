@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../../services/api.js";
 
-function PasswordConfirm({ handleSubmit }) {
+function PasswordConfirm({ handleFunc }) {
   const [password, setPassword] = useState("");
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
 
@@ -21,7 +21,7 @@ function PasswordConfirm({ handleSubmit }) {
       alert(
         "\nO usuário não foi encontrado ou não existe\n\nMatrícula ou senha podem estar incorretos"
       );
-    else handleSubmit();
+    else handleFunc(password);
   }
 
   return (

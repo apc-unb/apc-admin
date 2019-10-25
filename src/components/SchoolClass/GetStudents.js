@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api.js";
 import ShowStudent from "./ShowStudent";
+import EditStudent from "./EditStudent";
+import Popup from "reactjs-popup";
 
 function GetStudents() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
@@ -40,7 +42,33 @@ function GetStudents() {
             <p>
               {s.firstname} {s.lastname}
             </p>
-            <ShowStudent student={s} />
+            <Popup
+              trigger={<button className="button">Mostrar aluno </button>}
+              modal
+            >
+              {close => (
+                <>
+                  <span href="#" className="close" onClick={close}>
+                    &times;
+                  </span>
+                  <ShowStudent student={s} />
+                </>
+              )}
+            </Popup>
+            <Popup
+              trigger={<button className="button">Editar aluno </button>}
+              modal
+            >
+              {close => (
+                <>
+                  <span href="#" className="close" onClick={close}>
+                    &times;
+                  </span>
+                  <EditStudent student={s} />
+                </>
+              )}
+            </Popup>
+
             <button onClick={() => handleDelete(s.ID)}>Deletar</button>
           </li>
         ))}

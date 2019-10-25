@@ -8,24 +8,28 @@ function EditProfile() {
   const [firstname, setFirstname] = useState(admin_data.admin.firstname);
   const [lastname, setLastname] = useState(admin_data.admin.lastname);
   const [email, setEmail] = useState(admin_data.admin.email);
-  const [photourl, setPhotourl] = useState(admin_data.admin.photourl);
-  const [matricula, setMatricula] = useState(admin_data.admin.matricula);
+  const [newpassword, setNewpassword] = useState("");
 
-  async function handleSubmit() {
+  async function handleSubmit(password) {
     if (sessionStorage.getItem("auth")) {
       try {
-        const arr = [
-          {
-            id: admin_data.admin.ID,
-            classid: admin_data.class.ID,
-            email,
-            photourl
-          }
-        ];
+        if (newpassword === null) setNewpassword(password);
+        const obj = {
+          id: admin_data.admin.ID,
+          classid: admin_data.class.ID,
+          firstname,
+          lastname,
+          email,
+          password,
+          newpassword
+        };
+
         admin_data.admin.email = email;
-        admin_data.admin.photourl = photourl;
+        admin_data.admin.firstname = firstname;
+        admin_data.admin.lastname = lastname;
+
         sessionStorage.setItem("admin", JSON.stringify(admin_data));
-        await api.put("/admin", arr);
+        await api.put("/admin", obj);
       } catch (err) {
         console.error(err);
       }
@@ -64,25 +68,16 @@ function EditProfile() {
           required
         />
         <br />
-        <label htmlFor="matricula">Matrícula: </label>
+        <label htmlFor="newpassword">Nova senha: </label>
         <input
-          id="matricula"
-          type="text"
-          value={matricula}
-          onChange={event => setMatricula(event.target.value)}
-          required
+          id="newpassword"
+          type="password"
+          value={newpassword}
+          onChange={event => setNewpassword(event.target.value)}
         />
         <br />
-        <label htmlFor="photourl">Foto de perfil (url): </label>
-        <input
-          id="photourl"
-          type="text"
-          value={photourl}
-          onChange={event => setPhotourl(event.target.value)}
-          required
-        />
         <Popup trigger={<button type="button"> Enviar </button>}>
-          <PasswordConfirm handleSubmit={handleSubmit} />
+          <PasswordConfirm handleFunc={handleSubmit} />
         </Popup>
       </form>
     </div>

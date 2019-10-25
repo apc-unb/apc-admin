@@ -26,14 +26,14 @@ function CreateNews() {
       )
     ) {
       try {
-        const arr = [];
-        arr.push({
+        const obj = {
           classid: admin_data.class.ID,
           title,
           description,
           tags
-        });
-        await api.post("/news", arr);
+        };
+
+        await api.post("/news", obj);
       } catch (err) {
         console.error(err);
       }
