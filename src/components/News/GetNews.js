@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api.js";
+import Popup from "reactjs-popup";
+import EditNews from "./EditNews";
 
 function GetNews() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
@@ -47,6 +49,19 @@ function GetNews() {
           ))}
           <p>{n.description}</p>
           <small>{beautifulDate(n.updatedat)}</small>
+          <Popup
+            trigger={<button className="button">Editar notícia </button>}
+            modal
+          >
+            {close => (
+              <>
+                <span href="#" className="close-btn" onClick={close}>
+                  &times;
+                </span>
+                <EditNews news={n} />
+              </>
+            )}
+          </Popup>
           <button onClick={() => handleDelete(n.ID)}>Deletar</button>
         </li>
       ))}

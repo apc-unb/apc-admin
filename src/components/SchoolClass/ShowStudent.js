@@ -2,13 +2,19 @@ import React from "react";
 import Popup from "reactjs-popup";
 import EditStudent from "./EditStudent";
 
+const defaultPicture =
+  "https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png";
+
 function ShowStudent({ student }) {
   return (
     <div className="student">
       <h3>
         Nome: {student.firstname} {student.lastname}
       </h3>
-      <img src={student.photourl} alt="profile" />
+      <img
+        src={student.photourl === "" ? defaultPicture : student.photourl}
+        alt="profile"
+      />
       <p>Matrícula {student.matricula}</p>
       <p>Codeforces: {student.handles.codeforces}</p>
       <p>Email: {student.email}</p>
