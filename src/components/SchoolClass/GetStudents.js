@@ -4,6 +4,9 @@ import ShowStudent from "./ShowStudent";
 import EditStudent from "./EditStudent";
 import Popup from "reactjs-popup";
 
+const defaultPicture =
+  "https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png";
+
 function GetStudents() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [students, setStudents] = useState([]);
@@ -11,7 +14,7 @@ function GetStudents() {
   async function handleDelete(ID) {
     if (window.confirm("Deseja mesmo deletar este aluno?")) {
       try {
-        await api.delete("/admin/student", { data: [{ id: ID }] });
+        await api.delete("/student", { data: [{ id: ID }] });
       } catch (err) {
         console.error(err);
       }
@@ -38,7 +41,10 @@ function GetStudents() {
       <ul className="GetStudents">
         {students.map(s => (
           <li key={s.ID}>
-            <img src={s.photourl} alt="Profile" />
+            <img
+              src={s.photourl === "" ? defaultPicture : s.photourl}
+              alt="Profile"
+            />
             <p>
               {s.firstname} {s.lastname}
             </p>
