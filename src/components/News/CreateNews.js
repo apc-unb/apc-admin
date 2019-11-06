@@ -5,11 +5,10 @@ function CreateNews() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tags, setTags] = useState([""]);
+  const [tags, setTags] = useState([]);
 
-  async function handleSubmit() {
-    tags.shift();
-
+  async function handleSubmit(event) {
+    event.preventDefault();
     if (
       window.confirm(
         "Deseja mesmo criar esta notícia?\n\n" +
@@ -40,11 +39,15 @@ function CreateNews() {
     }
   }
 
-  function newTag(event) {
+  function addTags(event) {
     event.preventDefault();
-    let tag = document.getElementById("tags");
-    setTags([...tags, tag.value]);
-    tag.value = "";
+    if (event.key === "Enter" && event.target.value !== "") {
+      setTags([...tags, event.target.value]);
+      event.target.value = "";
+    }
+  }
+  function removeTags(index) {
+    setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
   }
 
   return (
@@ -72,12 +75,22 @@ function CreateNews() {
         />
         <br />
         <label htmlFor="tags">Tags: </label>
-        <input type="text" id="tags" type="text" placeholder="Tag" />
-        {tags.map((t, index) => (
-          <span key={index}>{t} / </span>
-        ))}
-
-        <button onClick={newTag}>+</button>
+        <input
+          type="text"
+          onKeyUp={event => addTags(event)}
+          placeholder="Precione enter para adicionar uma tag"
+        />
+        <button hidden onClick={addTags}>
+          +
+        </button>
+        <ul>
+          {tags.map((t, index) => (
+            <li key={index}>
+              <span>{t} </span>
+              <button onClick={() => removeTags(index)}>X</button>
+            </li>
+          ))}
+        </ul>
 
         <button className="btn" type="submit">
           Enviar
