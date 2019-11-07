@@ -1,10 +1,10 @@
 import React from "react";
 import Login from "../../components/Login/Login";
 
-function LoginPage({ history }) {
+function LoginPage() {
   return (
     <div className="login-page">
-      <Login history={history} />
+      <Login />
     </div>
   );
 }

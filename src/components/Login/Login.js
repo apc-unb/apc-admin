@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import api from "../../services/api-login";
 import Cookies from "universal-cookie";
 
-function Login({ history }) {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,10 +17,12 @@ function Login({ history }) {
       const jwt = response.data.jwt;
 
       const cookies = new Cookies();
+
       cookies.set("jwt", jwt, { path: "/" });
 
       sessionStorage.setItem("admin", JSON.stringify(admin));
-      history.push("/");
+
+      window.location = "/";
     } catch (err) {
       alert(
         "\nO usuário não foi encontrado ou não existe\n\nMatrícula ou senha podem estar incorretos"

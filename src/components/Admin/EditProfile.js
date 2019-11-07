@@ -8,6 +8,7 @@ function EditProfile() {
   const [firstname, setFirstname] = useState(admin_data.admin.firstname);
   const [lastname, setLastname] = useState(admin_data.admin.lastname);
   const [email, setEmail] = useState(admin_data.admin.email);
+  const [photourl, setPhotourl] = useState(admin_data.admin.photourl);
   const [newpassword, setNewpassword] = useState("");
 
   async function handleSubmit(password) {
@@ -20,19 +21,21 @@ function EditProfile() {
         lastname,
         email,
         password,
-        newpassword
+        newpassword,
+        photourl
       };
 
       admin_data.admin.email = email;
       admin_data.admin.firstname = firstname;
       admin_data.admin.lastname = lastname;
+      admin_data.admin.photourl = photourl;
 
       sessionStorage.setItem("admin", JSON.stringify(admin_data));
       await api.put("/admin", obj);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
-    window.location.reload();
   }
 
   return (
@@ -63,6 +66,15 @@ function EditProfile() {
           type="text"
           value={email}
           onChange={event => setEmail(event.target.value)}
+          required
+        />
+        <br />
+        <label htmlFor="photourl">Link foto de perfil: </label>
+        <input
+          id="photourl"
+          type="text"
+          value={photourl}
+          onChange={event => setPhotourl(event.target.value)}
           required
         />
         <br />

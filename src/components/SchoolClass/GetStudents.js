@@ -5,7 +5,7 @@ import EditStudent from "./EditStudent";
 import Popup from "reactjs-popup";
 
 const defaultPicture =
-  "https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png";
+  "https://cn.i.cdn.ti-platform.com/content/207/showpage/steven-universe/pt/stevenuniverse-200x200.png";
 
 function GetStudents() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
