@@ -8,6 +8,8 @@ import EditProfile from "../../components/Admin/EditProfile";
 import GetStudents from "../../components/SchoolClass/GetStudents";
 import CreateProjectType from "../../components/ProjectType/CreateProjectType";
 import GetProjectType from "../../components/ProjectType/GetProjectType";
+import CreateStudent from "../../components/SchoolClass/CreateStudent";
+import CreateAdmin from "../../components/Admin/CreateAdmin";
 import "./style.css";
 
 function Home() {
@@ -27,6 +29,7 @@ function Home() {
           </>
         )}
       </Popup>
+      {admin_data.admin.professor === true && <CreateAdmin />}
       <CreateNews />
       <GetNews />
       {admin_data.admin.professor === true && (
@@ -36,6 +39,7 @@ function Home() {
         </>
       )}
       <GetStudents />
+      <CreateStudent />
     </div>
   );
 }

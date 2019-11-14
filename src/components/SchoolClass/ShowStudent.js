@@ -16,7 +16,7 @@ function ShowStudent({ student }) {
   return (
     <div className="student">
       <h3>
-        {student.ID}Nome: {student.firstname} {student.lastname}
+        Nome: {student.firstname} {student.lastname}
       </h3>
       <img
         src={student.photourl === "" ? defaultPicture : student.photourl}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import api from "../../services/api.js";
+import api from "../../services/api";
 
-function CreateAdmin() {
+function CreateStudent() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -17,14 +17,15 @@ function CreateAdmin() {
           matricula
         }
       ];
-      await api.post("/admin", arr);
+      await api.post("/student", arr);
     } catch (err) {
       console.error(err);
     }
   }
+
   return (
-    <div className="CreateAdmin">
-      <h2>Cadastrar Monitor</h2>
+    <div className="CreateStudet">
+      <h2>Cadastrar Aluno</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstname">Primeiro nome: </label>
         <input
@@ -59,4 +60,4 @@ function CreateAdmin() {
   );
 }
 
-export default CreateAdmin;
+export default CreateStudent;
