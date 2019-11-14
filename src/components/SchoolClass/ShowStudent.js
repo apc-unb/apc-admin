@@ -6,8 +6,12 @@ const defaultPicture =
   "https://cn.i.cdn.ti-platform.com/content/207/showpage/steven-universe/pt/stevenuniverse-200x200.png";
 
 function ShowStudent({ student }) {
-  const [exams] = useState(student.grades.exams);
-  const [lists] = useState(student.grades.lists);
+  var gradesExams = [0];
+  var gradesLists = [0];
+  if (student.grades.exams !== null) gradesExams = student.grades.exams;
+  if (student.grades.lists !== null) gradesLists = student.grades.lists;
+  const [exams] = useState(gradesExams);
+  const [lists] = useState(gradesLists);
 
   return (
     <div className="student">

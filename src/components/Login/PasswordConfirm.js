@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import api from "../../services/api.js";
 
 function PasswordConfirm({ handleFunc }) {
+  const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [password, setPassword] = useState("");
-  const [matricula, setMatricula] = useState("");
 
   async function handleConfirm(event) {
     event.preventDefault();
     try {
       const response = await api.post("/admin/login", {
-        matricula,
+        matricula: admin_data.admin.matricula,
         password
       });
 
@@ -25,13 +25,14 @@ function PasswordConfirm({ handleFunc }) {
   return (
     <div className="passwordconfirm-page">
       <h3>Confirmar com senha</h3>
-      <label htmlFor="matriucla">Matrícula: </label>
+      {/* <label htmlFor="matriucla">Matrícula: </label> */}
       <input
         id="username"
         type="text"
         placeholder="Matrícula"
-        value={matricula}
-        onChange={event => setMatricula(event.target.value)}
+        value={admin_data.admin.matricula}
+        readOnly
+        hidden
       />
       <label htmlFor="password">Senha: </label>
       <input

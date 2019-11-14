@@ -6,9 +6,13 @@ import Profile from "../../components/Admin/Profile";
 import CreateNews from "../../components/News/CreateNews";
 import EditProfile from "../../components/Admin/EditProfile";
 import GetStudents from "../../components/SchoolClass/GetStudents";
+import CreateProjectType from "../../components/ProjectType/CreateProjectType";
+import GetProjectType from "../../components/ProjectType/GetProjectType";
 import "./style.css";
 
 function Home() {
+  const admin_data = JSON.parse(sessionStorage.getItem("admin"));
+
   return (
     <div className="home-page">
       <Header />
@@ -25,6 +29,12 @@ function Home() {
       </Popup>
       <CreateNews />
       <GetNews />
+      {admin_data.admin.professor === true && (
+        <>
+          <CreateProjectType />
+          <GetProjectType />
+        </>
+      )}
       <GetStudents />
     </div>
   );

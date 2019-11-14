@@ -10,8 +10,12 @@ function EditStudent({ student }) {
   const [matricula, setMatricula] = useState(student.matricula);
   const [email, setEmail] = useState(student.email);
   const [codeforces, setCodeforces] = useState(student.handles.codeforces);
-  const [exams, setExams] = useState(student.grades.exams);
-  const [lists, setLists] = useState(student.grades.lists);
+  var gradesExams = [0];
+  var gradesLists = [0];
+  if (student.grades.exams !== null) gradesExams = student.grades.exams;
+  if (student.grades.lists !== null) gradesLists = student.grades.lists;
+  const [exams, setExams] = useState(gradesExams);
+  const [lists, setLists] = useState(gradesLists);
 
   async function handleSubmit(password) {
     try {
@@ -32,8 +36,7 @@ function EditStudent({ student }) {
           lists
         }
       };
-
-      await api.put("admin/student", obj);
+      await api.put("/admin/student", obj);
       window.location.reload();
     } catch (err) {
       console.error(err);
@@ -43,19 +46,19 @@ function EditStudent({ student }) {
   function addExams(event) {
     event.preventDefault();
     if (event.key === "Enter" && event.target.value !== "") {
-      setExams([...exams, event.target.value]);
-      console.log("aqui");
+      setExams([...exams, parseFloat(event.target.value)]);
       event.target.value = "";
     }
   }
-  function removeExams(index) {
+  function removeExams(event, index) {
+    event.persist();
     setExams([...exams.filter(exam => exams.indexOf(exam) !== index)]);
   }
 
   function addLists(event) {
     event.preventDefault();
     if (event.key === "Enter" && event.target.value !== "") {
-      setLists([...lists, event.target.value]);
+      setLists([...lists, parseFloat(event.target.value)]);
       event.target.value = "";
     }
   }
@@ -128,7 +131,7 @@ function EditStudent({ student }) {
           {exams.map((e, index) => (
             <li key={index}>
               <span>{e} </span>
-              <button onClick={() => removeExams(index)}>X</button>
+              <button onClick={event => removeExams(event, index)}>X</button>
             </li>
           ))}
         </ul>

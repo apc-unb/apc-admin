@@ -34,38 +34,41 @@ function GetNews() {
   }, [news, admin_data]);
 
   return (
-    <ul className="GetNews">
-      {news.map(n => (
-        <li key={n.ID}>
-          <h2>{n.title}</h2>
-          {admin_data.class.ID === n.ClassID && (
-            <h3>
-              {admin_data.class.classname} - {admin_data.class.year}/
-              {admin_data.class.season}
-            </h3>
-          )}
-          {n.tags.map((tag, index) => (
-            <span key={tag + index}>[ {tag} ] / </span>
-          ))}
-          <p>{n.description}</p>
-          <small>{beautifulDate(n.updatedat)}</small>
-          <Popup
-            trigger={<button className="button">Editar notícia </button>}
-            modal
-          >
-            {close => (
-              <>
-                <span href="#" className="close-btn" onClick={close}>
-                  &times;
-                </span>
-                <EditNews news={n} />
-              </>
+    <>
+      <h1>Notícias</h1>
+      <ul className="GetNews">
+        {news.map(n => (
+          <li key={n.ID}>
+            <h2>{n.title}</h2>
+            {admin_data.class.ID === n.ClassID && (
+              <h3>
+                {admin_data.class.classname} - {admin_data.class.year}/
+                {admin_data.class.season}
+              </h3>
             )}
-          </Popup>
-          <button onClick={() => handleDelete(n.ID)}>Deletar</button>
-        </li>
-      ))}
-    </ul>
+            {n.tags.map((tag, index) => (
+              <span key={tag + index}>[ {tag} ] / </span>
+            ))}
+            <p>{n.description}</p>
+            <small>{beautifulDate(n.updatedat)}</small>
+            <Popup
+              trigger={<button className="button">Editar notícia </button>}
+              modal
+            >
+              {close => (
+                <>
+                  <span href="#" className="close-btn" onClick={close}>
+                    &times;
+                  </span>
+                  <EditNews news={n} />
+                </>
+              )}
+            </Popup>
+            <button onClick={() => handleDelete(n.ID)}>Deletar</button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

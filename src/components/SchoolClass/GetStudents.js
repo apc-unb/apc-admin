@@ -74,8 +74,9 @@ function GetStudents() {
                 </>
               )}
             </Popup>
-
-            <button onClick={() => handleDelete(s.ID)}>Deletar</button>
+            {admin_data.admin.professor === true && (
+              <button onClick={() => handleDelete(s.ID)}>Deletar</button>
+            )}
           </li>
         ))}
       </ul>
