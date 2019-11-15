@@ -1,8 +1,25 @@
 import React, { useState } from "react";
 import api from "../../services/api-login";
 import Cookies from "universal-cookie";
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField, Button, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    width: "100%",
+    flexDirection: "column"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200
+  }
+}));
 
 function Login() {
+  const style = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,35 +48,51 @@ function Login() {
   }
 
   return (
-    <div className="login-page">
-      <h1>Login page</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Matrícula: </label>
-        <input
+    <form onSubmit={handleSubmit} className={style.container}>
+      <Typography
+        component="h1"
+        variant="h5"
+        color="primary"
+        className={style.textField}
+        fullWidth
+      >
+        Login:
+      </Typography>
+      <div>
+        <TextField
           id="username"
-          type="number"
-          placeholder="Matrícula"
           value={username}
           onChange={event => setUsername(event.target.value)}
+          className={style.textField}
+          label="Matrícula"
+          margin="normal"
+          type="number"
+          helperText="Apenas números"
+          autoComplete="email"
+          autoFocus
+          fullWidth
           required
         />
-        <span> (apenas números) </span>
         <br />
-        <label htmlFor="password">Senha: </label>
-        <input
+        <TextField
           id="password"
           type="password"
-          placeholder="Senha"
           value={password}
           onChange={event => setPassword(event.target.value)}
+          className={style.textField}
+          label="Senha"
+          margin="normal"
+          fullWidth
+          autoComplete="current-password"
           required
         />
         <br />
-        <button className="btn" type="submit">
+        <br />
+        <Button variant="contained" color="primary" type="submit" fullWidth>
           Entrar
-        </button>
-      </form>
-    </div>
+        </Button>
+      </div>
+    </form>
   );
 }
 
