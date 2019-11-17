@@ -11,6 +11,8 @@ import GetProjectType from "../../components/ProjectType/GetProjectType";
 import CreateStudent from "../../components/SchoolClass/CreateStudent";
 import CreateAdmin from "../../components/Admin/CreateAdmin";
 import "./style.css";
+import GetSchoolClasses from "../../components/SchoolClass/GetSchoolClasses";
+import GetAdmins from "../../components/Admin/GetAdmins";
 
 function Home() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
@@ -29,13 +31,19 @@ function Home() {
           </>
         )}
       </Popup>
-      {admin_data.admin.professor === true && <CreateAdmin />}
+      {admin_data.admin.professor === true && (
+        <>
+          <CreateAdmin />
+          <GetAdmins />
+        </>
+      )}
       <CreateNews />
       <GetNews />
       {admin_data.admin.professor === true && (
         <>
           <CreateProjectType />
           <GetProjectType />
+          <GetSchoolClasses />
         </>
       )}
       <GetStudents />

@@ -33,7 +33,8 @@ function EditNews({ news }) {
       event.target.value = "";
     }
   }
-  function removeTags(index) {
+  function removeTags(index, event) {
+    event.preventDefault();
     setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
   }
 
@@ -76,7 +77,7 @@ function EditNews({ news }) {
           {tags.map((t, index) => (
             <li key={index}>
               <span>{t} </span>
-              <button onClick={() => removeTags(index)}>X</button>
+              <button onClick={event => removeTags(index, event)}>X</button>
             </li>
           ))}
         </ul>
