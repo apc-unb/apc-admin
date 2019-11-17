@@ -1,6 +1,19 @@
 import React from "react";
 import Login from "../../components/Login/Login";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography, Link } from "@material-ui/core";
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="#">
+        DraGon T
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 function LoginPage() {
   return (
@@ -8,15 +21,15 @@ function LoginPage() {
       <Grid
         container
         spacing={0}
-        direction="column"
         alignItems="center"
         justify="center"
         style={{ minHeight: "80vh" }}
       >
-        <Grid item xs={3}>
+        <Grid item xs={6} lg={3} md={3} sm={3}>
           <Login />
         </Grid>
       </Grid>
+      <Copyright />
     </div>
   );
 }

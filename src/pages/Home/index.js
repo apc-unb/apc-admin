@@ -10,9 +10,23 @@ import CreateProjectType from "../../components/ProjectType/CreateProjectType";
 import GetProjectType from "../../components/ProjectType/GetProjectType";
 import CreateStudent from "../../components/SchoolClass/CreateStudent";
 import CreateAdmin from "../../components/Admin/CreateAdmin";
-import "./style.css";
 import GetSchoolClasses from "../../components/SchoolClass/GetSchoolClasses";
 import GetAdmins from "../../components/Admin/GetAdmins";
+import { Typography, Link } from "@material-ui/core";
+import "./style.css";
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="#">
+        DraGon T
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 function Home() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
@@ -48,6 +62,7 @@ function Home() {
       )}
       <GetStudents />
       <CreateStudent />
+      <Copyright />
     </div>
   );
 }
