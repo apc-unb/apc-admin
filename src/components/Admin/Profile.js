@@ -72,6 +72,11 @@ function Profile() {
                   </ButtonGroup>
                 }
                 modal
+                contentStyle={{
+                  borderRadius: "25px",
+                  borderWidth: "20px 20px 20px 20px",
+                  borderColor: "white"
+                }}
               >
                 {close => (
                   <>
