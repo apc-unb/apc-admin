@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     height: 200
   },
   card: {
-    width: "50%"
+    width: "100%"
   }
 });
 
@@ -40,46 +40,51 @@ function Profile() {
           className={classes.bigAvatar}
         />
       </Grid>
-      <Grid container justify="center" alignItems="center">
-        <Card className={classes.card}>
-          <CardHeader
-            avatar={<AccountCircleIcon />}
-            title={admin_data.admin.firstname + " " + admin_data.admin.lastname}
-          />
-          <CardHeader
-            avatar={<AlternateEmailIcon />}
-            title={admin_data.admin.email}
-          />
-          <CardHeader
-            avatar={<FingerprintIcon />}
-            title={admin_data.admin.matricula}
-          />
-          <CardContent>
-            <Popup
-              trigger={
-                <ButtonGroup fullWidth>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    startIcon={<EditIcon />}
-                  >
-                    Editar
-                  </Button>
-                </ButtonGroup>
+      <Grid spacing={0} container justify="center" alignItems="center">
+        <Grid item sm={0}></Grid>
+        <Grid item sm={6}>
+          <Card className={classes.card}>
+            <CardHeader
+              avatar={<AccountCircleIcon />}
+              title={
+                admin_data.admin.firstname + " " + admin_data.admin.lastname
               }
-              modal
-            >
-              {close => (
-                <>
-                  <span href="#" className="close-btn" onClick={close}>
-                    &times;
-                  </span>
-                  <EditProfile />
-                </>
-              )}
-            </Popup>
-          </CardContent>
-        </Card>
+            />
+            <CardHeader
+              avatar={<AlternateEmailIcon />}
+              title={admin_data.admin.email}
+            />
+            <CardHeader
+              avatar={<FingerprintIcon />}
+              title={admin_data.admin.matricula}
+            />
+            <CardContent>
+              <Popup
+                trigger={
+                  <ButtonGroup fullWidth>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      startIcon={<EditIcon />}
+                    >
+                      Editar
+                    </Button>
+                  </ButtonGroup>
+                }
+                modal
+              >
+                {close => (
+                  <>
+                    <span href="#" className="close-btn" onClick={close}>
+                      &times;
+                    </span>
+                    <EditProfile />
+                  </>
+                )}
+              </Popup>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
     </div>
   );
