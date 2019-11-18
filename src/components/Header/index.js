@@ -6,19 +6,19 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
+import FaceIcon from "@material-ui/icons/Face";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import HomeIcon from "@material-ui/icons/Home";
 
 const drawerWidth = 240;
 
@@ -108,14 +108,13 @@ const useStyles = makeStyles(theme => ({
 
 function Header() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   function logout() {
     const cookies = new Cookies();
@@ -125,8 +124,17 @@ function Header() {
 
     window.location.href = "/";
   }
+
+  function gotoProfile() {
+    window.location.href = "/profile";
+  }
+
+  function gotoHome() {
+    window.location.href = "/";
+  }
+
   return (
-    <div className={classes.root}>
+    <>
       <CssBaseline />
       <AppBar
         position="absolute"
@@ -176,12 +184,26 @@ function Header() {
             <ChevronLeftIcon />
           </IconButton>
         </div>
+        <br />
         <Divider />
-        {/* <List>{mainListItems}</List> */}
+        <List>
+          <ListItem button onClick={() => gotoHome()}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Página inicial" />
+          </ListItem>
+          <ListItem button onClick={() => gotoProfile()}>
+            <ListItemIcon>
+              <FaceIcon />
+            </ListItemIcon>
+            <ListItemText primary="Meu perfil" />
+          </ListItem>
+        </List>
         <Divider />
         {/* <List>{secondaryListItems}</List> */}
       </Drawer>
-    </div>
+    </>
   );
 }
 

@@ -25,7 +25,7 @@ function LoginPage() {
         justify="center"
         style={{ minHeight: "80vh" }}
       >
-        <Grid item xs={6} lg={3} md={3} sm={3}>
+        <Grid item xs={6} lg={2} md={3} sm={3}>
           <Login />
         </Grid>
       </Grid>

@@ -1,26 +1,86 @@
 import React from "react";
+import EditProfile from "./EditProfile";
+import Popup from "reactjs-popup";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
+import { Card, CardHeader, CardContent } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import EditIcon from "@material-ui/icons/Edit";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-const defaultPicture =
-  "https://cn.i.cdn.ti-platform.com/content/207/showpage/steven-universe/pt/stevenuniverse-200x200.png";
+const useStyles = makeStyles({
+  bigAvatar: {
+    margin: 50,
+    width: 200,
+    height: 200
+  },
+  card: {
+    width: "50%"
+  }
+});
 
 function Profile() {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
+  const classes = useStyles();
 
   return (
     <div className="profile-page">
-      <h2>
-        {admin_data.admin.firstname} {admin_data.admin.lastname}
-      </h2>
-      <img
-        src={
-          admin_data.admin.photourl === ""
-            ? defaultPicture
-            : admin_data.admin.photourl
-        }
-        alt="Profile"
-      />
-      <p>{admin_data.admin.email}</p>
-      <p>{admin_data.admin.matricula}</p>
+      <Grid container justify="center" alignItems="center">
+        <Avatar
+          alt="Profile Picture"
+          src={
+            admin_data.admin.photourl === ""
+              ? "default.webp"
+              : admin_data.admin.photourl
+          }
+          className={classes.bigAvatar}
+        />
+      </Grid>
+      <Grid container justify="center" alignItems="center">
+        <Card className={classes.card}>
+          <CardHeader
+            avatar={<AccountCircleIcon />}
+            title={admin_data.admin.firstname + " " + admin_data.admin.lastname}
+          />
+          <CardHeader
+            avatar={<AlternateEmailIcon />}
+            title={admin_data.admin.email}
+          />
+          <CardHeader
+            avatar={<FingerprintIcon />}
+            title={admin_data.admin.matricula}
+          />
+          <CardContent>
+            <Popup
+              trigger={
+                <ButtonGroup fullWidth>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    startIcon={<EditIcon />}
+                  >
+                    Editar
+                  </Button>
+                </ButtonGroup>
+              }
+              modal
+            >
+              {close => (
+                <>
+                  <span href="#" className="close-btn" onClick={close}>
+                    &times;
+                  </span>
+                  <EditProfile />
+                </>
+              )}
+            </Popup>
+          </CardContent>
+        </Card>
+      </Grid>
     </div>
   );
 }

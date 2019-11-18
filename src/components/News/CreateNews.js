@@ -8,7 +8,6 @@ function CreateNews() {
   const [tags, setTags] = useState([]);
 
   async function handleSubmit(event) {
-    event.preventDefault();
     if (
       window.confirm(
         "Deseja mesmo criar esta notícia?\n\n" +

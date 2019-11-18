@@ -1,21 +1,15 @@
 import React from "react";
-import Header from "../../components/Header";
-import GetNews from "../../components/News/GetNews";
-import CreateNews from "../../components/News/CreateNews";
-import GetStudents from "../../components/SchoolClass/GetStudents";
-import CreateProjectType from "../../components/ProjectType/CreateProjectType";
-import GetProjectType from "../../components/ProjectType/GetProjectType";
-import CreateStudent from "../../components/SchoolClass/CreateStudent";
-import CreateAdmin from "../../components/Admin/CreateAdmin";
-import GetAdmins from "../../components/Admin/GetAdmins";
 import clsx from "clsx";
+import Profile from "../../components/Admin/Profile";
+import Header from "../../components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
-import "./style.css";
+
+const drawerWidth = 240;
 
 function Copyright() {
   return (
@@ -29,8 +23,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,13 +99,17 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column"
   },
   fixedHeight: {
-    height: 500
+    height: "100%"
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 60,
+    height: 60
   }
 }));
 
-function Home() {
+function ProfilePage() {
   const classes = useStyles();
-  const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -125,55 +121,10 @@ function Home() {
           <br />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              {/* News */}
-              <Grid item xs={12} md={8} lg={9}>
+              {/* Profile */}
+              <Grid item xs={12} md={12} lg={12}>
                 <Paper className={fixedHeightPaper}>
-                  <GetNews />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={fixedHeightPaper}>
-                  <CreateNews />
-                </Paper>
-              </Grid>
-              {/* Admins */}
-              {admin_data.admin.professor === true && (
-                <>
-                  <Grid item xs={12} md={6} lg={7}>
-                    <Paper className={fixedHeightPaper}>
-                      <GetAdmins />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={5}>
-                    <Paper className={fixedHeightPaper}>
-                      <CreateAdmin />
-                    </Paper>
-                  </Grid>
-                </>
-              )}
-              {admin_data.admin.professor === true && (
-                <>
-                  <Grid item xs={12} md={6} lg={7}>
-                    <Paper className={fixedHeightPaper}>
-                      <GetProjectType />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={5}>
-                    <Paper className={fixedHeightPaper}>
-                      <CreateProjectType />
-                    </Paper>
-                  </Grid>
-                </>
-              )}
-              {/* Students */}
-              <Grid item xs={12} md={6} lg={7}>
-                <Paper className={fixedHeightPaper}>
-                  <GetStudents />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={6} lg={5}>
-                <Paper className={fixedHeightPaper}>
-                  <CreateStudent />
+                  <Profile />
                 </Paper>
               </Grid>
             </Grid>
@@ -185,4 +136,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ProfilePage;
