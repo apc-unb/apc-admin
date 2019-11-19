@@ -18,7 +18,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import HomeIcon from "@material-ui/icons/Home";
+import SchoolIcon from "@material-ui/icons/School";
+import GetSchoolClasses from "../SchoolClass/GetSchoolClasses";
 
 const drawerWidth = 240;
 
@@ -108,12 +113,26 @@ const useStyles = makeStyles(theme => ({
 
 function Header() {
   const classes = useStyles();
+  const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [open, setOpen] = React.useState(false);
+  const [topen, setTopen] = React.useState(false);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+    setTopen(false);
+  };
+
+  const handleNestedItens = () => {
+    if (open === true) {
+      setTopen(!topen);
+    }
+    if (open === false && topen === false) {
+      setOpen(true);
+      setTopen(true);
+    }
   };
 
   function logout() {
@@ -201,7 +220,22 @@ function Header() {
           </ListItem>
         </List>
         <Divider />
-        {/* <List>{secondaryListItems}</List> */}
+        {admin_data.admin.professor === true && (
+          <List>
+            <ListItem button onClick={handleNestedItens}>
+              <ListItemIcon>
+                <SchoolIcon />
+              </ListItemIcon>
+              <ListItemText primary="Turmas" />
+              {topen ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={topen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <GetSchoolClasses />
+              </List>
+            </Collapse>
+          </List>
+        )}
       </Drawer>
     </>
   );

@@ -53,7 +53,6 @@ function Login() {
         variant="h5"
         color="primary"
         className={style.textField}
-        fullWidth
       >
         Login:
       </Typography>

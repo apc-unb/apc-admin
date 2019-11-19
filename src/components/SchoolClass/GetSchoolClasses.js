@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api.js";
+import { makeStyles } from "@material-ui/core/styles";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+
+const useStyles = makeStyles(theme => ({
+  nested: {
+    paddingLeft: theme.spacing(4)
+  }
+}));
 
 function GetSchoolClasses() {
+  const style = useStyles();
   var admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [classes, setClasses] = useState([]);
 
@@ -20,11 +30,16 @@ function GetSchoolClasses() {
 
   return (
     <>
-      <h2>Escolher turma:</h2>
       {classes.map(c => (
-        <button key={c.ID} value={c} onClick={event => handleClick(c)}>
-          {c.classname} - {c.year}/{c.season}
-        </button>
+        <ListItem
+          button
+          className={style.nested}
+          onClick={() => handleClick(c)}
+        >
+          <ListItemText
+            primary={c.classname + " - " + c.year + "/" + c.season}
+          />
+        </ListItem>
       ))}
     </>
   );
