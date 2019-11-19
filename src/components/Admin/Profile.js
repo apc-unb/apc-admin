@@ -41,7 +41,6 @@ function Profile() {
         />
       </Grid>
       <Grid spacing={0} container justify="center" alignItems="center">
-        <Grid item sm={0}></Grid>
         <Grid item sm={6}>
           <Card className={classes.card}>
             <CardHeader

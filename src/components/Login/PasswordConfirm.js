@@ -1,7 +1,24 @@
 import React, { useState } from "react";
 import api from "../../services/api.js";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import { TextField, Button, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    width: "100%",
+    flexDirection: "column"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  }
+}));
 
 function PasswordConfirm({ handleFunc }) {
+  const style = useStyles();
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [password, setPassword] = useState("");
 
@@ -23,31 +40,38 @@ function PasswordConfirm({ handleFunc }) {
   }
 
   return (
-    <div className="passwordconfirm-page">
-      <h3>Confirmar com senha</h3>
-      {/* <label htmlFor="matriucla">Matrícula: </label> */}
-      <input
-        id="username"
-        type="text"
-        placeholder="Matrícula"
-        value={admin_data.admin.matricula}
-        readOnly
-        hidden
-      />
-      <label htmlFor="password">Senha: </label>
-      <input
-        autoComplete="new-password"
+    <div className={style.container}>
+      <Typography
+        component="h1"
+        variant="h5"
+        color="primary"
+        className={style.textField}
+        fullWidth
+      >
+        Confirmar senha:
+      </Typography>
+      <TextField
         id="password"
         type="password"
-        placeholder="Senha"
         value={password}
         onChange={event => setPassword(event.target.value)}
+        className={style.textField}
+        label="Senha"
+        margin="normal"
+        fullWidth
+        autoFocus
+        autoComplete="current-password"
         required
       />
       <br />
-      <button onClick={handleConfirm} className="btn" type="submit">
+      <Button
+        color="primary"
+        variant="contained"
+        startIcon={<VerifiedUserIcon />}
+        onClick={handleConfirm}
+      >
         Confirmar
-      </button>
+      </Button>
     </div>
   );
 }
