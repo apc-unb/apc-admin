@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import api from "../../services/api";
 import Popup from "reactjs-popup";
 import PasswordConfirm from "../Login/PasswordConfirm";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Grid from "@material-ui/core/Grid";
+import SendIcon from "@material-ui/icons/Send";
 
 function EditStudent({ student }) {
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
@@ -157,7 +161,27 @@ function EditStudent({ student }) {
             </li>
           ))}
         </ul>
-        <Popup trigger={<button type="button"> Enviar </button>}>
+        <Popup
+          trigger={
+            <Grid item xs={12} sm={10}>
+              <ButtonGroup fullWidth>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  startIcon={<SendIcon />}
+                >
+                  Enviar
+                </Button>
+              </ButtonGroup>
+            </Grid>
+          }
+          modal
+          contentStyle={{
+            borderRadius: "25px",
+            borderWidth: "20px 20px 20px 20px",
+            borderColor: "white"
+          }}
+        >
           <PasswordConfirm handleFunc={handleSubmit} />
         </Popup>
       </form>

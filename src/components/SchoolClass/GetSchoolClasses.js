@@ -26,6 +26,7 @@ function GetSchoolClasses() {
   async function handleClick(sclass) {
     admin_data.class = sclass;
     sessionStorage.setItem("admin", JSON.stringify(admin_data));
+    window.location.href = "/";
   }
 
   return (
