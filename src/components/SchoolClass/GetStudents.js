@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api.js";
 import EditStudent from "./EditStudent";
+
 import Popup from "reactjs-popup";
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: 10,
-    marginRight: theme.spacing(5)
+    marginRight: theme.spacing(4)
   },
   card: {
     width: "100%"
@@ -88,7 +89,7 @@ function GetStudents() {
 
       <ul className="GetStudents">
         {students.map(s => (
-          <ExpansionPanel>
+          <ExpansionPanel key={s.ID}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -98,7 +99,7 @@ function GetStudents() {
                 <CardHeader
                   avatar={
                     <Avatar
-                      alt="Remy Sharp"
+                      alt="Profile Picture"
                       src={s.photourl === "" ? "default.webp" : s.photourl}
                       className={classes.avatar}
                     />

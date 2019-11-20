@@ -1,10 +1,39 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api.js";
 
-const defaultPicture =
-  "https://cn.i.cdn.ti-platform.com/content/207/showpage/steven-universe/pt/stevenuniverse-200x200.png";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { Card, CardHeader, CardContent } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100%"
+  },
+  heading: {
+    marginTop: theme.spacing(2),
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular
+  },
+  avatar: {
+    margin: 10,
+    width: 60,
+    height: 60,
+    marginRight: theme.spacing(4)
+  },
+  card: {
+    width: "100%",
+    marginBottom: theme.spacing(2)
+  }
+}));
 
 function GetAdmins() {
+  const classes = useStyles();
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [admins, setAdmins] = useState([]);
 
@@ -27,27 +56,52 @@ function GetAdmins() {
   }, [admins, admin_data]);
 
   return (
-    <>
-      <h1>Monitores</h1>
+    <div className={classes.root}>
+      <Typography variant="h4" align="center">
+        Monitores
+      </Typography>
       <ul>
         {admins.map(
           admin =>
             admin.professor === false && (
-              <li key={admin.ID}>
-                <img
-                  src={admin.photourl === "" ? defaultPicture : admin.photourl}
-                  alt="Profile"
+              <Card className={classes.card} key={admin.ID}>
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      alt="Profile Picture"
+                      src={
+                        admin.photourl === "" ? "default.webp" : admin.photourl
+                      }
+                      className={classes.avatar}
+                    />
+                  }
+                  title={admin.firstname + " " + admin.lastname}
                 />
-                <p>
-                  {admin.firstname} {admin.lastname}
-                </p>
-                <p>{admin.email}</p>
-                <button onClick={() => handleDelete(admin.ID)}>Deletar</button>
-              </li>
+                <CardHeader
+                  avatar={<FingerprintIcon />}
+                  title={admin.matricula}
+                />
+                <CardHeader
+                  avatar={<AlternateEmailIcon />}
+                  title={admin.email}
+                />
+                <CardContent>
+                  <ButtonGroup fullWidth>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      startIcon={<DeleteIcon />}
+                      onClick={() => handleDelete(admin.ID)}
+                    >
+                      Deletar
+                    </Button>
+                  </ButtonGroup>
+                </CardContent>
+              </Card>
             )
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

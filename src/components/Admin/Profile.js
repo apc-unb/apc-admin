@@ -34,7 +34,7 @@ function Profile() {
           alt="Profile Picture"
           src={
             admin_data.admin.photourl === ""
-              ? "default.webp"
+              ? "monitor-default.webp"
               : admin_data.admin.photourl
           }
           className={classes.bigAvatar}
