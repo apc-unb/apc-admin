@@ -3,7 +3,7 @@ import api from "../../services/api.js";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Card, CardHeader, CardContent } from "@material-ui/core";
+import { Card, CardHeader, CardContent, Grid } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
@@ -86,16 +86,18 @@ function GetAdmins() {
                   title={admin.email}
                 />
                 <CardContent>
-                  <ButtonGroup fullWidth>
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      startIcon={<DeleteIcon />}
-                      onClick={() => handleDelete(admin.ID)}
-                    >
-                      Deletar
-                    </Button>
-                  </ButtonGroup>
+                  <Grid container justify="center">
+                    <ButtonGroup>
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        startIcon={<DeleteIcon />}
+                        onClick={() => handleDelete(admin.ID)}
+                      >
+                        Deletar
+                      </Button>
+                    </ButtonGroup>
+                  </Grid>
                 </CardContent>
               </Card>
             )

@@ -28,7 +28,6 @@ function CreateAdmin() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstname">Primeiro nome: </label>
         <input
-          id="firstname"
           type="text"
           value={firstname}
           onChange={event => setFirstname(event.target.value)}
@@ -37,7 +36,6 @@ function CreateAdmin() {
         <br />
         <label htmlFor="lastname">Último nome: </label>
         <input
-          id="lastname"
           type="text"
           value={lastname}
           onChange={event => setLastname(event.target.value)}
@@ -46,7 +44,6 @@ function CreateAdmin() {
         <br />
         <label htmlFor="matricula">Matrícula: </label>
         <input
-          id="matricula"
           type="text"
           value={matricula}
           onChange={event => setMatricula(event.target.value)}

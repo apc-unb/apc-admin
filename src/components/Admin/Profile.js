@@ -74,7 +74,8 @@ function Profile() {
                 contentStyle={{
                   borderRadius: "25px",
                   borderWidth: "20px 20px 20px 20px",
-                  borderColor: "white"
+                  borderColor: "white",
+                  maxWidth: "600px"
                 }}
               >
                 {close => (

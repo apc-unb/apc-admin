@@ -165,7 +165,8 @@ function EditProfile() {
           contentStyle={{
             borderRadius: "25px",
             borderWidth: "20px 20px 20px 20px",
-            borderColor: "white"
+            borderColor: "white",
+            maxWidth: "300px"
           }}
         >
           <PasswordConfirm handleFunc={handleSubmit} />

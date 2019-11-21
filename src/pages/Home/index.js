@@ -92,11 +92,13 @@ const useStyles = makeStyles(theme => ({
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
+    marginTop: theme.spacing(2),
     flexGrow: 1,
     height: "100vh",
     overflow: "auto"
   },
   container: {
+    marginTop: theme.spacing(6),
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
   },
@@ -107,7 +109,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column"
   },
   fixedHeight: {
-    height: 500
+    maxHeight: 700
   }
 }));
 
@@ -121,21 +123,45 @@ function Home() {
       <Header />
       <main className={classes.content}>
         <div className={classes.appBarSpacer}>
-          <br />
-          <br />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
               {/* News */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <GetNews />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={5} lg={4}>
                 <Paper className={fixedHeightPaper}>
                   <CreateNews />
                 </Paper>
               </Grid>
+              <Grid item xs={12} md={7} lg={8}>
+                <Paper className={fixedHeightPaper}>
+                  <GetNews />
+                </Paper>
+              </Grid>
+              {/* Students */}
+              <Grid item xs={12} md={6} lg={7}>
+                <Paper className={fixedHeightPaper}>
+                  <GetStudents />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={6} lg={5}>
+                <Paper className={fixedHeightPaper}>
+                  <CreateStudent />
+                </Paper>
+              </Grid>
+              {/* Projects */}
+              {admin_data.admin.professor === true && (
+                <>
+                  <Grid item xs={12} md={6} lg={5}>
+                    <Paper className={fixedHeightPaper}>
+                      <CreateProjectType />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={7}>
+                    <Paper className={fixedHeightPaper}>
+                      <GetProjectType />
+                    </Paper>
+                  </Grid>
+                </>
+              )}
               {/* Admins */}
               {admin_data.admin.professor === true && (
                 <>
@@ -151,31 +177,6 @@ function Home() {
                   </Grid>
                 </>
               )}
-              {admin_data.admin.professor === true && (
-                <>
-                  <Grid item xs={12} md={6} lg={7}>
-                    <Paper className={fixedHeightPaper}>
-                      <GetProjectType />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={5}>
-                    <Paper className={fixedHeightPaper}>
-                      <CreateProjectType />
-                    </Paper>
-                  </Grid>
-                </>
-              )}
-              {/* Students */}
-              <Grid item xs={12} md={6} lg={7}>
-                <Paper className={fixedHeightPaper}>
-                  <GetStudents />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={6} lg={5}>
-                <Paper className={fixedHeightPaper}>
-                  <CreateStudent />
-                </Paper>
-              </Grid>
             </Grid>
           </Container>
           <Copyright />

@@ -77,7 +77,6 @@ function EditStudent({ student }) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstname">Primeiro nome: </label>
         <input
-          id="firstname"
           type="text"
           value={firstname}
           onChange={event => setFirstname(event.target.value)}
@@ -86,7 +85,6 @@ function EditStudent({ student }) {
         <br />
         <label htmlFor="lastname">Último nome: </label>
         <input
-          id="lastname"
           type="text"
           value={lastname}
           onChange={event => setLastname(event.target.value)}
@@ -95,7 +93,6 @@ function EditStudent({ student }) {
         <br />
         <label htmlFor="email">E-mail: </label>
         <input
-          id="email"
           type="text"
           value={email}
           onChange={event => setEmail(event.target.value)}
@@ -104,7 +101,6 @@ function EditStudent({ student }) {
         <br />
         <label htmlFor="matricula">Matrícula: </label>
         <input
-          id="matricula"
           type="text"
           value={matricula}
           onChange={event => setMatricula(event.target.value)}
@@ -113,7 +109,6 @@ function EditStudent({ student }) {
         <br />
         <label htmlFor="codeforces">Handle Codeforces: </label>
         <input
-          id="codeforces"
           type="text"
           value={codeforces}
           onChange={event => setCodeforces(event.target.value)}
@@ -179,7 +174,8 @@ function EditStudent({ student }) {
           contentStyle={{
             borderRadius: "25px",
             borderWidth: "20px 20px 20px 20px",
-            borderColor: "white"
+            borderColor: "white",
+            maxWidth: "300px"
           }}
         >
           <PasswordConfirm handleFunc={handleSubmit} />

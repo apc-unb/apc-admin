@@ -18,7 +18,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Card, CardHeader, CardContent } from "@material-ui/core";
+import { Card, CardHeader, CardContent, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,6 +35,10 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     width: "100%"
+  },
+  button: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2)
   }
 }));
 
@@ -93,7 +97,6 @@ function GetStudents() {
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
-              id="panel1a-header"
             >
               <Card className={classes.card}>
                 <CardHeader
@@ -125,46 +128,50 @@ function GetStudents() {
                   title={"Notas das listas: " + handleLists(s)}
                 />
                 <CardContent>
-                  <Popup
-                    trigger={
+                  <Grid container justify="center">
+                    <Popup
+                      trigger={
+                        <ButtonGroup>
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            className={classes.button}
+                            startIcon={<EditIcon />}
+                          >
+                            Editar
+                          </Button>
+                        </ButtonGroup>
+                      }
+                      modal
+                      contentStyle={{
+                        borderRadius: "25px",
+                        borderWidth: "20px 20px 20px 20px",
+                        borderColor: "white",
+                        maxWidth: "600px"
+                      }}
+                    >
+                      {close => (
+                        <>
+                          <span href="#" className="close-btn" onClick={close}>
+                            &times;
+                          </span>
+                          <EditStudent student={s} />
+                        </>
+                      )}
+                    </Popup>
+                    {admin_data.admin.professor === true && (
                       <ButtonGroup>
                         <Button
-                          color="primary"
+                          color="secondary"
                           variant="contained"
-                          startIcon={<EditIcon />}
+                          startIcon={<DeleteIcon />}
+                          onClick={() => handleDelete(s.ID)}
                         >
-                          Editar
+                          Deletar
                         </Button>
                       </ButtonGroup>
-                    }
-                    modal
-                    contentStyle={{
-                      borderRadius: "25px",
-                      borderWidth: "20px 20px 20px 20px",
-                      borderColor: "white"
-                    }}
-                  >
-                    {close => (
-                      <>
-                        <span href="#" className="close-btn" onClick={close}>
-                          &times;
-                        </span>
-                        <EditStudent student={s} />
-                      </>
                     )}
-                  </Popup>
-                  {admin_data.admin.professor === true && (
-                    <ButtonGroup>
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        startIcon={<DeleteIcon />}
-                        onClick={() => handleDelete(s.ID)}
-                      >
-                        Deletar
-                      </Button>
-                    </ButtonGroup>
-                  )}
+                  </Grid>
                 </CardContent>
               </Card>
             </ExpansionPanelDetails>

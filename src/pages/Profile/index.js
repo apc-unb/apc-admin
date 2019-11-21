@@ -84,6 +84,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
+    marginTop: theme.spacing(5),
     flexGrow: 1,
     height: "100vh",
     overflow: "auto"
