@@ -70,6 +70,7 @@ function CreateNews() {
         };
 
         await api.post("/news", obj);
+        window.location.reload();
       } catch (err) {
         console.error(err);
       }
@@ -93,13 +94,7 @@ function CreateNews() {
         Enviar notícias
       </Typography>
       <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          spacing={2}
-          alignItems="center"
-          justify="center"
-          sm={12}
-        >
+        <Grid container spacing={2} alignItems="center" justify="center">
           <Grid item sm={1}>
             <TitleIcon />
           </Grid>
@@ -115,7 +110,7 @@ function CreateNews() {
           </Grid>
         </Grid>
         <br />
-        <Grid container alignItems="center" justify="center" sm={12}>
+        <Grid container alignItems="center" justify="center">
           <Grid item sm={1}>
             <DescriptionIcon />
           </Grid>
@@ -134,7 +129,7 @@ function CreateNews() {
           </Grid>
         </Grid>
         <br />
-        <Grid container alignItems="center" justify="center" sm={12}>
+        <Grid container alignItems="center" justify="center">
           <Grid item sm={1}>
             <LocalOfferIcon />
           </Grid>

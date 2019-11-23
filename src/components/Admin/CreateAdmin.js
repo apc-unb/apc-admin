@@ -18,6 +18,7 @@ function CreateAdmin() {
         }
       ];
       await api.post("/admin", arr);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }

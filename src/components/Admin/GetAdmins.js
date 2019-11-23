@@ -53,7 +53,7 @@ function GetAdmins() {
       setAdmins(response.data);
     }
     getData();
-  }, [admins, admin_data]);
+  }, [admin_data.class.ID]);
 
   return (
     <div className={classes.root}>

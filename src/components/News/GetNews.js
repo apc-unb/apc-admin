@@ -67,7 +67,7 @@ function GetNews() {
       setNews(response.data);
     }
     getData();
-  }, [news, admin_data]);
+  }, [admin_data.class.ID]);
 
   return (
     <div className={classes.root}>

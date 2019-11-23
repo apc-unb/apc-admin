@@ -21,7 +21,7 @@ function GetSchoolClasses() {
       setClasses(response.data);
     }
     getData();
-  }, [classes, admin_data]);
+  }, [admin_data.admin.ID]);
 
   async function handleClick(sclass) {
     admin_data.class = sclass;

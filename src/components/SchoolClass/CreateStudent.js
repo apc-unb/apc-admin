@@ -18,6 +18,7 @@ function CreateStudent() {
         }
       ];
       await api.post("/student", arr);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }

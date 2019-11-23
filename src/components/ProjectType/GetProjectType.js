@@ -39,7 +39,7 @@ function GetProjectType() {
     }
 
     getData();
-  }, [projecttype, admin_data]);
+  }, [admin_data.class.ID]);
 
   return (
     <>

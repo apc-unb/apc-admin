@@ -18,6 +18,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import DeleteIcon from "@material-ui/icons/Delete";
+import SearchIcon from "@material-ui/icons/Search";
+import TextField from "@material-ui/core/TextField";
 import { Card, CardHeader, CardContent, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -46,6 +48,8 @@ function GetStudents() {
   const classes = useStyles();
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [students, setStudents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   async function handleDelete(ID) {
     if (window.confirm("Deseja mesmo deletar este aluno?")) {
@@ -62,7 +66,18 @@ function GetStudents() {
       setStudents(response.data);
     }
     getData();
-  }, [students, admin_data]);
+  }, [admin_data.class.ID]);
+
+  useEffect(() => {
+    const results = students.filter(student =>
+      student.firstname
+        .concat(" ", student.lastname.toString().toLowerCase())
+        .toString()
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm, students]);
 
   function handleExams(student) {
     var string = "";
@@ -90,9 +105,25 @@ function GetStudents() {
         Professor(a): {admin_data.class.professorfirstname}{" "}
         {admin_data.class.professorlastname}
       </Typography>
-
+      <br />
+      <Grid container spacing={2} alignItems="center" justify="center">
+        <Grid item sm={1}>
+          <SearchIcon />
+        </Grid>
+        <Grid item sm={9}>
+          <TextField
+            label="Buscar"
+            type="text"
+            value={searchTerm}
+            fullWidth
+            variant="outlined"
+            onChange={event => setSearchTerm(event.target.value)}
+            required
+          />
+        </Grid>
+      </Grid>
       <ul className="GetStudents">
-        {students.map(s => (
+        {searchResults.map(s => (
           <ExpansionPanel key={s.ID}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
