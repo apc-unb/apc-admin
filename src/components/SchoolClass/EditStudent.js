@@ -6,8 +6,34 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Grid from "@material-ui/core/Grid";
 import SendIcon from "@material-ui/icons/Send";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import CodeIcon from "@material-ui/icons/Code";
+import NotesIcon from "@material-ui/icons/Notes";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100%"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  grid: {
+    marginTop: theme.spacing(2)
+  },
+  chip: {
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(2)
+  }
+}));
 
 function EditStudent({ student }) {
+  const classes = useStyles();
   const admin_data = JSON.parse(sessionStorage.getItem("admin"));
   const [firstname, setFirstname] = useState(student.firstname);
   const [lastname, setLastname] = useState(student.lastname);
@@ -82,93 +108,144 @@ function EditStudent({ student }) {
   }
 
   return (
-    <div className="EditStudent">
-      <h2>Editar Aluno </h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstname">Primeiro nome: </label>
-        <input
-          type="text"
-          value={firstname}
-          onChange={event => setFirstname(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="lastname">Último nome: </label>
-        <input
-          type="text"
-          value={lastname}
-          onChange={event => setLastname(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="email">E-mail: </label>
-        <input
-          type="text"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="matricula">Matrícula: </label>
-        <input
-          type="text"
-          value={matricula}
-          onChange={event => setMatricula(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="codeforces">Handle Codeforces: </label>
-        <input
-          type="text"
-          value={codeforces}
-          onChange={event => setCodeforces(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="exams">Notas das provas: </label>
-        <input
-          autoComplete="new-password"
-          type="number"
-          step="0.01"
-          name="exam"
-          onKeyUp={event => addExams(event)}
-          placeholder="Precione enter para adicionar uma nota de prova"
-        />
+    <form onSubmit={handleSubmit} className={classes.root}>
+      <Grid container spacing={2} alignItems="center" justify="center">
+        <Grid item>
+          <AccountCircle />
+        </Grid>
+        <Grid item sm={5}>
+          <TextField
+            label="Primeiro nome"
+            id="firstname"
+            type="text"
+            value={firstname}
+            fullWidth
+            onChange={event => setFirstname(event.target.value)}
+            required
+          />
+        </Grid>
+        <Grid item sm={5}>
+          <TextField
+            label="Último nome"
+            id="lastname"
+            type="text"
+            value={lastname}
+            fullWidth
+            onChange={event => setLastname(event.target.value)}
+            required
+          />
+        </Grid>
+        <Grid container spacing={2} alignItems="center" justify="center"></Grid>
+        <Grid item>
+          <AlternateEmailIcon />
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <TextField
+            label="e-mail"
+            id="email"
+            fullWidth
+            type="text"
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+            required
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} alignItems="center" justify="center">
+        <Grid item>
+          <FingerprintIcon />
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <TextField
+            label="Matrícula"
+            helperText="apenas números"
+            fullWidth
+            type="text"
+            value={matricula}
+            onChange={event => setMatricula(event.target.value)}
+            required
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} alignItems="center" justify="center">
+        <Grid item>
+          <CodeIcon />
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <TextField
+            label="Handle Codeforces"
+            fullWidth
+            type="text"
+            value={codeforces}
+            onChange={event => setCodeforces(event.target.value)}
+            required
+          />
+        </Grid>
+      </Grid>
+      <br />
+      <Grid container alignItems="center" justify="center">
+        <Grid item sm={1}>
+          <NotesIcon />
+        </Grid>
+        <Grid item sm={9}>
+          <TextField
+            label="Nota das provas"
+            type="number"
+            step="0.01"
+            fullWidth
+            variant="filled"
+            onKeyUp={event => addExams(event)}
+            placeholder="Precione enter para adicionar"
+          />
+        </Grid>
         <button hidden onClick={addExams}>
           +
         </button>
-        <ul>
-          {exams.map((e, index) => (
-            <li key={index}>
-              <span>{e} </span>
-              <button onClick={event => removeExams(event, index, e)}>X</button>
-            </li>
-          ))}
-        </ul>
-        <br />
-        <label htmlFor="lists">Notas das listas: </label>
-        <input
-          autoComplete="new-password"
-          type="number"
-          step="0.01"
-          name="list"
-          onKeyUp={event => addLists(event)}
-          placeholder="Precione enter para adicionar uma nota de prova"
+      </Grid>
+      <br />
+      {exams.map((e, index) => (
+        <Chip
+          key={index}
+          label={e}
+          variant="outlined"
+          className={classes.chip}
+          onDelete={event => removeExams(event, index, e)}
         />
+      ))}
+      <br />
+      <Grid container alignItems="center" justify="center">
+        <Grid item sm={1}>
+          <NotesIcon />
+        </Grid>
+        <Grid item sm={9}>
+          <TextField
+            label="Nota das listas"
+            type="number"
+            step="0.01"
+            fullWidth
+            variant="filled"
+            onKeyUp={event => addLists(event)}
+            placeholder="Precione enter para adicionar"
+          />
+        </Grid>
         <button hidden onClick={addLists}>
           +
         </button>
-        <ul>
-          {lists.map((l, index) => (
-            <li key={index}>
-              <span>{l} </span>
-              <button onClick={event => removeLists(event, index, l)}>X</button>
-            </li>
-          ))}
-        </ul>
+      </Grid>
+      <br />
+      {lists.map((l, index) => (
+        <Chip
+          key={index}
+          label={l}
+          variant="outlined"
+          className={classes.chip}
+          onDelete={event => removeLists(event, index, l)}
+        />
+      ))}
+      <Grid container justify="center">
         <Popup
           trigger={
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={12} sm={10} md={6} lg={3}>
               <ButtonGroup fullWidth>
                 <Button
                   color="primary"
@@ -190,8 +267,8 @@ function EditStudent({ student }) {
         >
           <PasswordConfirm handleFunc={handleSubmit} />
         </Popup>
-      </form>
-    </div>
+      </Grid>
+    </form>
   );
 }
 

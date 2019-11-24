@@ -2,8 +2,35 @@ import React, { useState } from "react";
 import api from "../../services/api";
 import Popup from "reactjs-popup";
 import PasswordConfirm from "../Login/PasswordConfirm";
+import { makeStyles } from "@material-ui/core/styles";
+import TitleIcon from "@material-ui/icons/Title";
+import DescriptionIcon from "@material-ui/icons/Description";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import SendIcon from "@material-ui/icons/Send";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100%"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  grid: {
+    marginTop: theme.spacing(2)
+  },
+  chip: {
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(2)
+  }
+}));
 
 function EditNews({ news }) {
+  const classes = useStyles();
   const classid = JSON.parse(sessionStorage.getItem("admin")).class.ID;
   const [title, setTitle] = useState(news.title);
   const [description, setDescription] = useState(news.description);
@@ -39,54 +66,96 @@ function EditNews({ news }) {
   }
 
   return (
-    <div className="EditNews">
-      <h2>Editar Notícia </h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Título: </label>
-        <input
-          id="etitle"
-          type="text"
-          placeholder="Título"
-          value={title}
-          onChange={event => setTitle(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="description">Descrição: </label>
-        <textarea
-          id="edescription"
-          type="text"
-          placeholder="Descrição"
-          value={description}
-          onChange={event => setDescription(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="tags">Tags: </label>
-        <input
-          autoComplete="new-password"
-          type="text"
-          name="tag"
-          onKeyUp={event => addTags(event)}
-          placeholder="Precione enter para adicionar uma tag"
-        />
+    <form onSubmit={handleSubmit} className={classes.root}>
+      <Grid container spacing={2} alignItems="center" justify="center">
+        <Grid item sm={1}>
+          <TitleIcon />
+        </Grid>
+        <Grid item sm={9}>
+          <TextField
+            label="Título"
+            type="text"
+            value={title}
+            fullWidth
+            onChange={event => setTitle(event.target.value)}
+            required
+          />
+        </Grid>
+      </Grid>
+      <br />
+      <Grid container alignItems="center" justify="center">
+        <Grid item sm={1}>
+          <DescriptionIcon />
+        </Grid>
+        <Grid item sm={9}>
+          <TextField
+            label="Descrição"
+            type="text"
+            value={description}
+            fullWidth
+            multiline
+            rows="6"
+            variant="outlined"
+            onChange={event => setDescription(event.target.value)}
+            required
+          />
+        </Grid>
+      </Grid>
+      <br />
+      <Grid container alignItems="center" justify="center">
+        <Grid item sm={1}>
+          <LocalOfferIcon />
+        </Grid>
+        <Grid item sm={9}>
+          <TextField
+            label="Tags"
+            type="text"
+            fullWidth
+            variant="filled"
+            onKeyUp={event => addTags(event)}
+            placeholder="Precione enter para adicionar"
+          />
+        </Grid>
         <button hidden onClick={addTags}>
           +
         </button>
-        <ul>
-          {tags.map((t, index) => (
-            <li key={index}>
-              <span>{t} </span>
-              <button onClick={event => removeTags(index, event)}>X</button>
-            </li>
-          ))}
-        </ul>
-
-        <Popup trigger={<button type="button"> Enviar </button>}>
+      </Grid>
+      <br />
+      {tags.map((t, index) => (
+        <Chip
+          key={index}
+          label={t}
+          variant="outlined"
+          color="primary"
+          className={classes.chip}
+          onDelete={event => removeTags(index, event)}
+        />
+      ))}
+      <Grid container justify="center">
+        <Popup
+          trigger={
+            <Grid item xs={12} sm={10} md={6} lg={3}>
+              <Button
+                color="primary"
+                variant="contained"
+                startIcon={<SendIcon />}
+              >
+                Enviar
+              </Button>
+            </Grid>
+          }
+          modal
+          contentStyle={{
+            borderRadius: "25px",
+            borderWidth: "20px 20px 20px 20px",
+            borderColor: "white",
+            maxWidth: "300px"
+          }}
+        >
           <PasswordConfirm handleFunc={handleSubmit} />
         </Popup>
-      </form>
-    </div>
+      </Grid>
+    </form>
   );
 }
 
