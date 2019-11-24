@@ -149,7 +149,7 @@ function EditProfile() {
       >
         <Popup
           trigger={
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={12} sm={10} md={6} lg={3}>
               <ButtonGroup fullWidth>
                 <Button
                   color="primary"

@@ -41,6 +41,7 @@ function GetAdmins() {
     if (window.confirm("Deseja mesmo deletar este aluno?")) {
       try {
         await api.delete("/admin", { data: { id: ID } });
+        window.location.reload();
       } catch (err) {
         console.error(err);
       }
@@ -70,7 +71,9 @@ function GetAdmins() {
                     <Avatar
                       alt="Profile Picture"
                       src={
-                        admin.photourl === "" ? "default.webp" : admin.photourl
+                        admin.photourl === ""
+                          ? "monitor-default.webp"
+                          : admin.photourl
                       }
                       className={classes.avatar}
                     />

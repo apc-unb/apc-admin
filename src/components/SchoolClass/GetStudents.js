@@ -55,6 +55,7 @@ function GetStudents() {
     if (window.confirm("Deseja mesmo deletar este aluno?")) {
       try {
         await api.delete("/student", { data: [{ id: ID }] });
+        window.location.reload();
       } catch (err) {
         console.error(err);
       }
@@ -118,7 +119,6 @@ function GetStudents() {
             fullWidth
             variant="outlined"
             onChange={event => setSearchTerm(event.target.value)}
-            required
           />
         </Grid>
       </Grid>

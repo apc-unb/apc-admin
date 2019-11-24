@@ -54,9 +54,14 @@ function EditStudent({ student }) {
       event.target.value = "";
     }
   }
-  function removeExams(event, index) {
+  function removeExams(event, index, value) {
     event.preventDefault();
-    setExams([...exams.filter(exam => exams.indexOf(exam) !== index)]);
+    setExams([
+      ...exams.filter((exam, idx) => {
+        if (exam === value && idx === index) return false;
+        return true;
+      })
+    ]);
   }
 
   function addLists(event) {
@@ -66,9 +71,14 @@ function EditStudent({ student }) {
       event.target.value = "";
     }
   }
-  function removeLists(event, index) {
+  function removeLists(event, index, value) {
     event.preventDefault();
-    setLists([...lists.filter(list => lists.indexOf(list) !== index)]);
+    setLists([
+      ...lists.filter((list, idx) => {
+        if (list === value && idx === index) return false;
+        return true;
+      })
+    ]);
   }
 
   return (
@@ -131,7 +141,7 @@ function EditStudent({ student }) {
           {exams.map((e, index) => (
             <li key={index}>
               <span>{e} </span>
-              <button onClick={event => removeExams(event, index)}>X</button>
+              <button onClick={event => removeExams(event, index, e)}>X</button>
             </li>
           ))}
         </ul>
@@ -152,7 +162,7 @@ function EditStudent({ student }) {
           {lists.map((l, index) => (
             <li key={index}>
               <span>{l} </span>
-              <button onClick={event => removeLists(event, index)}>X</button>
+              <button onClick={event => removeLists(event, index, l)}>X</button>
             </li>
           ))}
         </ul>

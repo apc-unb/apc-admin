@@ -8,8 +8,8 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import SendIcon from "@material-ui/icons/Send";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles(theme => ({
   root: {

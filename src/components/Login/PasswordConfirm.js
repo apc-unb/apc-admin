@@ -46,7 +46,6 @@ function PasswordConfirm({ handleFunc }) {
         variant="h5"
         color="primary"
         className={style.textField}
-        fullWidth
       >
         Confirmar senha:
       </Typography>

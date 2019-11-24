@@ -55,6 +55,7 @@ function GetNews() {
     if (window.confirm("Deseja mesmo deletar esta notícia?")) {
       try {
         await api.delete("/news", { data: [{ id: ID }] });
+        window.location.reload();
       } catch (err) {
         console.error(err);
       }
